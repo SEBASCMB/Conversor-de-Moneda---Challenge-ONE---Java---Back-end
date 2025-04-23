@@ -45,7 +45,7 @@ Desde la versión actual, este proyecto utiliza un archivo `.env` para gestionar
 - El archivo `.env` está incluido en `.gitignore` y no se subirá a GitHub.
 - El código utiliza la librería [dotenv-java](https://github.com/cdimascio/dotenv-java) para leer la clave de API desde `.env`.
 
-> **Consulta la guía completa de configuración y ejecución en [`README_DOTENV.txt`](README_DOTENV.md)**
+> **Consulta la guía completa de configuración y ejecución en [`README_DOTENV.md`](README_DOTENV.md)**
 
 ## Estructura del Proyecto
 
@@ -57,7 +57,7 @@ Desde la versión actual, este proyecto utiliza un archivo `.env` para gestionar
 
 ## Compilación y ejecución
 
-1. Descarga la dependencia `dotenv-java` siguiendo las instrucciones en [`README_DOTENV.txt`](README_DOTENV.txt).
+1. Descarga la dependencia `dotenv-java` siguiendo las instrucciones en [`README_DOTENV.md`](README_DOTENV.md).
 2. Compila todo el proyecto incluyendo el JAR de dotenv-java:
    ```sh
    javac -cp "lib/dotenv-java-2.2.4.jar" -d bin src/service/*.java src/util/*.java src/Main.java
