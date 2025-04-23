@@ -67,6 +67,11 @@ Desde la versión actual, este proyecto utiliza un archivo `.env` para gestionar
    java -cp "bin:lib/dotenv-java-2.2.4.jar" Main
    ```
 
+## Ejemplo:
+
+![2025-04-22-21-43-08](https://github.com/user-attachments/assets/c516a3bb-d605-44ed-8dea-a6dbf1d914a8)
+
+
 ## Requisitos
 - Java 17 o superior
 - Conexión a internet (para obtener tasas de cambio en tiempo real)
