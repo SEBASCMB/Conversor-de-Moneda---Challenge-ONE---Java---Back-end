@@ -45,7 +45,7 @@ Desde la versión actual, este proyecto utiliza un archivo `.env` para gestionar
 - El archivo `.env` está incluido en `.gitignore` y no se subirá a GitHub.
 - El código utiliza la librería [dotenv-java](https://github.com/cdimascio/dotenv-java) para leer la clave de API desde `.env`.
 
-> **Consulta la guía completa de configuración y ejecución en [`README_DOTENV.txt`](README_DOTENV.txt)**
+> **Consulta la guía completa de configuración y ejecución en [`README_DOTENV.txt`](README_DOTENV.md)**
 
 ## Estructura del Proyecto
 
