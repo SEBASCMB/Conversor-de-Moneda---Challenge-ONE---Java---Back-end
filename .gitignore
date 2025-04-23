@@ -1,0 +1,45 @@
+# Compiled class files
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# NetBeans
+nbproject/private/
+build/
+dist/
+
+# Eclipse
+.settings/
+.project
+.classpath
+bin/
+
+# VS Code
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Others
+*.swp
+*.swo
