@@ -43,3 +43,6 @@ Thumbs.db
 # Others
 *.swp
 *.swo
+
+# Archivo de variables de entorno
+.env
