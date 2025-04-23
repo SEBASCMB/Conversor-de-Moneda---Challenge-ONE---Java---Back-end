@@ -34,6 +34,19 @@ Seleccione una opción válida (1-7):
 ============================================================
 ```
 
+## Variables de entorno y seguridad
+
+Desde la versión actual, este proyecto utiliza un archivo `.env` para gestionar la clave de API de manera segura. Esto evita que tu clave quede expuesta en el repositorio.
+
+- La clave de API se debe colocar en el archivo `.env` en la raíz del proyecto:
+  ```
+  API_KEY=tu_api_key_aqui
+  ```
+- El archivo `.env` está incluido en `.gitignore` y no se subirá a GitHub.
+- El código utiliza la librería [dotenv-java](https://github.com/cdimascio/dotenv-java) para leer la clave de API desde `.env`.
+
+> **Consulta la guía completa de configuración y ejecución en [`README_DOTENV.txt`](README_DOTENV.txt)**
+
 ## Estructura del Proyecto
 
 - `src/` - Código fuente principal
@@ -44,13 +57,14 @@ Seleccione una opción válida (1-7):
 
 ## Compilación y ejecución
 
-1. Compila todo el proyecto:
+1. Descarga la dependencia `dotenv-java` siguiendo las instrucciones en [`README_DOTENV.txt`](README_DOTENV.txt).
+2. Compila todo el proyecto incluyendo el JAR de dotenv-java:
    ```sh
-   javac -d out src/service/*.java src/util/*.java src/Main.java
+   javac -cp "lib/dotenv-java-2.2.4.jar" -d bin src/service/*.java src/util/*.java src/Main.java
    ```
-2. Ejecuta el programa:
+3. Ejecuta el programa:
    ```sh
-   java -cp out Main
+   java -cp "bin:lib/dotenv-java-2.2.4.jar" Main
    ```
 
 ## Requisitos
