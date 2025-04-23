@@ -4,8 +4,9 @@ Este es un proyecto de consola en Java que permite convertir entre diferentes mo
 
 ## ¿Cómo funciona?
 
-- Al ejecutar el programa, verás un menú con varias opciones de conversión (USD, COP, BRL, EUR).
-- Selecciona la opción deseada (1-7).
+- Al ejecutar el programa, verás un menú con varias opciones de conversión rápida (USD, COP, BRL, EUR) y una opción especial para convertir entre cualquier divisa soportada por la API.
+- Selecciona la opción deseada (1-8).
+- Si eliges la opción 8, podrás ver una tabla con todas las divisas disponibles y luego ingresar los códigos de las monedas que deseas convertir (por ejemplo, de JPY a COP).
 - Ingresa el monto que deseas convertir.
 - El programa mostrará el resultado utilizando tasas de cambio actualizadas.
 - Puedes seguir convirtiendo o salir con la opción 7.
@@ -26,8 +27,26 @@ Este es un proyecto de consola en Java que permite convertir entre diferentes mo
 5  Dólar => Euro                   USD a EUR
 6  Euro => Dólar                   EUR a USD
 7  Salir                           Salir del programa
+8  Mostrar todas las divisas       Lista de divisas soportadas
 ============================================================
-Seleccione una opción válida (1-7):
+Seleccione una opción válida (1-8):
+============================================================
+
+🌍 Listado de divisas soportadas
++----------+----------------------------------------+
+| Código   | Nombre                                 |
++----------+----------------------------------------+
+| USD      | United States Dollar                   |
+| JPY      | Japanese Yen                           |
+| COP      | Colombian Peso                         |
+| ...      | ...                                    |
++----------+----------------------------------------+
+💡 Ingrese el código de la moneda de origen: JPY
+💡 Ingrese el código de la moneda de destino: COP
+💸 Ingrese el monto a convertir: 1000
+
+💵 Resultado de la conversión:
+1000.00 JPY = 27000.00 COP
 ============================================================
  Ingrese el monto a convertir: 100
  Resultado: 100.00 USD = 42800.00 COP
