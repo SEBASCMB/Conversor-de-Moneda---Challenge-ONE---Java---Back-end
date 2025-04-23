@@ -20,6 +20,7 @@ public class Main {
             final String YELLOW = "\u001B[33m";
             final String CYAN   = "\u001B[36m";
             final String RED    = "\u001B[31m";
+            final String MAGENTA = "\u001B[35m";
             final String RESET  = "\u001B[0m";
             final String SEPARATOR = BLUE + "=".repeat(60) + RESET;
 
@@ -32,6 +33,11 @@ public class Main {
                 displayMenu();
                 int option = ConsoleUtils.leerOpcion(scanner, "");
 
+                if ( option == 8 ) {
+                    mostrarTodasLasDivisas(api, rates, scanner);
+                    continue;
+                }
+
                 if ( option == 7 ){
                     ConsoleUtils.mostrarDespedida("👋 ¡Hasta luego y gracias por usar el conversor!", SEPARATOR, GREEN, RESET);
                     break;
@@ -42,7 +48,7 @@ public class Main {
                 
                 Runnable accion = acciones.get(option);
                 if (accion == null) {
-                    ConsoleUtils.mostrarError("❌ Opción no válida, por favor seleccione entre 1 y 7.", RED);
+                    ConsoleUtils.mostrarError("❌ Opción no válida, por favor seleccione entre 1 y 8.", RED);
                     continue;
                 }
 
@@ -81,6 +87,7 @@ public class Main {
         final String YELLOW = "\u001B[33m";
         final String CYAN   = "\u001B[36m";
         final String RED    = "\u001B[31m";
+        final String MAGENTA = "\u001B[35m";
         final String RESET  = "\u001B[0m";
 
         final int WIDTH = 60;
@@ -102,9 +109,70 @@ public class Main {
         System.out.printf("%-3s %-35s %-25s\n", YELLOW+"5"+RESET, "Dólar => Euro", "💲 USD a EUR");
         System.out.printf("%-3s %-35s %-25s\n", YELLOW+"6"+RESET, "Euro => Dólar", "💲 EUR a USD");
         System.out.printf("%-3s %-35s %-25s\n", RED+"7"+RESET, "Salir", "🚪 Salir del programa");
+        System.out.printf("%-3s %-35s %-25s\n", MAGENTA+"8"+RESET, "Mostrar todas las divisas", "🌍 Lista de divisas soportadas");
         System.out.println(separator);
-        System.out.println(CYAN + "Seleccione una opción válida (1-7):" + RESET);
+        System.out.println(CYAN + "Seleccione una opción válida (1-8):" + RESET);
         System.out.println(separator);
 
+    }
+
+    private static void mostrarTodasLasDivisas(ExchangeRateApiService api, ExchangeRateResponse rates, Scanner scanner) {
+        final String BLUE   = "\u001B[34m";
+        final String GREEN  = "\u001B[32m";
+        final String YELLOW = "\u001B[33m";
+        final String CYAN   = "\u001B[36m";
+        final String RED    = "\u001B[31m";
+        final String MAGENTA = "\u001B[35m";
+        final String RESET  = "\u001B[0m";
+        final String BOLD   = "\u001B[1m";
+
+        try {
+
+            String[][] codes = api.getSupportedCodes();
+            System.out.println();
+            System.out.println(MAGENTA + BOLD + "🌍 Listado de divisas soportadas" + RESET);
+            String header = CYAN + BOLD + String.format("| %-8s | %-38s |", "Código", "Nombre") + RESET;
+            String border = BLUE + "+----------+----------------------------------------+" + RESET;
+            System.out.println(border);
+            System.out.println(header);
+            System.out.println(border);
+
+            for (String[] code : codes) {
+
+                System.out.printf("| %-8s | %-38s |%n", YELLOW + code[0] + RESET, GREEN + code[1] + RESET);
+
+            }
+
+            System.out.println(border);
+
+            System.out.println();
+            System.out.print(BOLD + CYAN + "💡 Ingrese el " + YELLOW + "código" + CYAN + " de la moneda de " + GREEN + "origen" + CYAN + ": " + RESET);
+            String from = scanner.next().toUpperCase();
+            System.out.print(BOLD + CYAN + "💡 Ingrese el " + YELLOW + "código" + CYAN + " de la moneda de " + GREEN + "destino" + CYAN + ": " + RESET);
+            String to = scanner.next().toUpperCase();
+            System.out.print(BOLD + CYAN + "💸 Ingrese el " + YELLOW + "monto" + CYAN + " a convertir: " + RESET);
+            double amount = scanner.nextDouble();
+
+            Double rateFrom = rates.conversion_rates.get(from);
+            Double rateTo = rates.conversion_rates.get(to);
+
+            if (rateFrom == null || rateTo == null) {
+
+                System.out.println(RED + BOLD + "❌ Uno de los códigos ingresados no es válido." + RESET);
+                return;
+
+            }
+
+            double result = (amount / rateFrom) * rateTo;
+            System.out.println();
+            System.out.println(GREEN + BOLD + "\uD83D\uDCB6 Resultado de la conversión:" + RESET);
+            System.out.printf(BOLD + YELLOW + "%.2f %s" + RESET + CYAN + " = " + RESET + BOLD + GREEN + "%.2f %s" + RESET + "%n", amount, from, result, to);
+            System.out.println();
+
+        } catch (Exception e) {
+
+            System.out.println(RED + BOLD + "Error al obtener la lista de divisas o al convertir: " + e.getMessage() + RESET);
+            
+        }
     }
 }
