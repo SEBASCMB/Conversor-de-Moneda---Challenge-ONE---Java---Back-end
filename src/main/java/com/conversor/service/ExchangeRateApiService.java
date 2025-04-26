@@ -1,4 +1,4 @@
-package service;
+package main.java.com.conversor.service;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,23 +13,28 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+import main.java.com.conversor.model.ExchangeRateResponse;
+
 public class ExchangeRateApiService {
 
   private static final String API_URL;
   private static final String CODES_URL;
+  private final HttpClient client;
+  private final Gson gson;
+  
   static {
-
     Dotenv dotenv = Dotenv.load();
     String apiKey = dotenv.get("API_KEY");
     API_URL = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/USD";
     CODES_URL = "https://v6.exchangerate-api.com/v6/" + apiKey + "/codes";
-    
   }
-  private final Gson gson = new Gson();
+  
+  public ExchangeRateApiService() {
+    this.client = HttpClient.newHttpClient();
+    this.gson = new Gson();
+  }
 
   public ExchangeRateResponse getLatestRates() throws IOException, InterruptedException {
-
-    HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
       .uri(URI.create(API_URL))
       .GET()
@@ -41,7 +46,6 @@ public class ExchangeRateApiService {
   }
 
   public String[][] getSupportedCodes() throws IOException, InterruptedException {
-    HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
       .uri(URI.create(CODES_URL))
       .GET()
@@ -49,7 +53,8 @@ public class ExchangeRateApiService {
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
     String body = response.body();
-    Map<String, Object> jsonMap = gson.fromJson(body, Map.class);
+    Type mapType = new TypeToken<Map<String, Object>>(){}.getType();
+    Map<String, Object> jsonMap = gson.fromJson(body, mapType);
     Object supportedCodesObj = jsonMap.get("supported_codes");
 
     Type listType = new TypeToken<List<List<String>>>(){}.getType();
@@ -57,13 +62,10 @@ public class ExchangeRateApiService {
     String[][] codes = new String[codesList.size()][2];
 
     for (int i = 0; i < codesList.size(); i++) {
-
         codes[i][0] = codesList.get(i).get(0);
         codes[i][1] = codesList.get(i).get(1);
-
     }
 
     return codes;
-
   }
-}
+} 

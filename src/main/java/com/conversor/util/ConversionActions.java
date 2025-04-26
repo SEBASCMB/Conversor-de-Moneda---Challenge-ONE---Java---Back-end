@@ -1,9 +1,14 @@
-package util;
+package main.java.com.conversor.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ConversionActions {
+    
+    private ConversionActions() {
+        // Constructor privado para evitar instanciación
+    }
+    
     public static Map<Integer, Runnable> build(final String[] fromTo) {
         Map<Integer, Runnable> acciones = new HashMap<>();
         acciones.put(1, () -> { fromTo[0] = "USD"; fromTo[1] = "COP"; });
@@ -14,4 +19,4 @@ public class ConversionActions {
         acciones.put(6, () -> { fromTo[0] = "EUR"; fromTo[1] = "USD"; });
         return acciones;
     }
-}
+} 
